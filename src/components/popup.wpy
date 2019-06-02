@@ -1,0 +1,79 @@
+<style lang="less">
+  .pop-up {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    transition: 0.4s;
+      .pop_up_content {
+        width: 550rpx;
+        height: 635rpx;
+        border-radius: 20rpx;
+        background-color: #fff;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding:20rpx;
+        .title {
+          color: red;
+          margin-top: 20rpx;
+
+        }
+        .close {
+          width: 30rpx;
+          height: 30rpx;
+          background-color: red;
+          position: absolute;
+          top: 0prx;
+          right: 20rpx;
+        }
+      }
+    .text_center {
+      text-align: center;
+    }
+  }
+
+</style>
+<template>
+  <cover-view class="pop-up" wx:if="{{isShowPopup}}">
+    <cover-view class="pop_up_content">
+      <cover-view class="close" @tap="close"></cover-view>
+      <slot></slot>
+    </cover-view>
+  </cover-view>
+</template>
+<script>
+/**
+ * 弹出框
+ * isShowPopup 控制是否显示
+ * 调用组件时可以控制默认是否显示：:isShowPopup.sync="isShowPopup"
+ * 关闭弹框后 通过$emit 传值更新页面的 isShowPopup 值
+ */
+  import wepy from 'wepy'
+  export default class Popup extends wepy.component {
+    props = {
+      isShowPopup: {
+        type: [Number, String, Boolean],
+        default: false
+      }
+    }
+    data = {
+      // isShowPopup: false
+    }
+    watch = {}
+    methods = {
+      close() {
+        this.isShowPopup = false
+        // 获取$emit传递的值,定义的函数名：@index-emit.user="处理函数"
+        this.$emit('index-emit', false)
+      }
+    }
+  }
+</script>
+
+
+

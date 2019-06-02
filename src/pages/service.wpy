@@ -1,0 +1,240 @@
+<style lang="less">
+.service{
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+.navigation {
+  padding-top:65rpx;
+  padding-bottom: 15rpx;
+  width: 100%;
+  height: 10vh;
+  box-sizing: border-box;
+  background-color: #fff;
+  z-index: 10;
+  .item {
+      text-align: center;
+      width: 100%;
+      // padding: 30rpx 0;
+    }
+}
+.chat {
+  max-height: 80vh;
+  padding-bottom: 20rpx;
+  box-sizing: border-box;
+  // transition:all .5s;
+
+  .date {
+    width: 100%;
+    text-align: center;
+    font-size: 24rpx;
+    margin-top: 20rpx;
+
+  }
+  .chat_box {
+    // margin: 20rpx;
+    .logo {
+      width: 80rpx;
+      height: 80rpx;
+      border-radius: 50%;
+      // background-color: red;
+      overflow: hidden;
+    }
+    .logo1 {
+      background-color: blue;
+    }
+
+    .msg {
+      // background-color: #fff;
+      // border-radius: 0 15rpx 15rpx 15rpx;
+      padding: 10rpx 20rpx;
+      margin-top: 20rpx;
+      max-width: 400rpx;
+      word-wrap:break-word
+
+    }
+    .store-msg {
+      margin-left: 40rpx;
+      background-color: #fff;
+      border-radius: 0 15rpx 15rpx 15rpx;
+    }
+    .my_msg {
+      margin-right: 40rpx;
+      background-color: pink;
+      border-radius: 15rpx 0 15rpx 15rpx;
+
+    }
+  }
+  // .my {
+  //   text-align: right;
+  // }
+}
+.input_box {
+  width: 100%;
+  // min-height: 10vh;
+  // background-color: pink;
+  // transition:all .5s;
+  .input-txt {
+    border: 1px solid #ccc;
+    width: 80%;
+    border-radius: 20rpx;
+    // position: fixed;
+    // bottom: 0;
+    // left: 0;
+  }
+}
+
+</style>
+<template>
+<view class="container ">
+  <view class="service">
+    <view class="navigation flex_x_container">
+      <view class="item flex_x_container">
+        <view class="item back" @tap="back" >返回</view>
+        <view class="item back">列表</view>
+      </view>
+      <view class="item">娇米</view>
+      <view class="item"></view>
+    </view>
+    <scroll-view scroll-y class="chat" style="width:{{chat.width}}%;height:{{chat.height}}vh;" scroll-into-view='{{toView}}' >
+      <block wx:for="{{msgList}}" wx:key="{{index}}">
+        <!-- 客服发送的信息  左边 -->
+        <view wx:if="{{item.type=='serve'}}" id="msg-{{index}}">
+          <view class="date">{{item.date}}</view>
+          <view class="store chat_box clearfix">
+            <view class="logo logo1 fl"></view>
+            <view class="msg fl store-msg">{{item.content}}</view>
+          </view>
+        </view>
+        <!-- 用户发送的信息  右边 -->
+        <view wx:else id="msg-{{index}}">
+          <view class="date">{{item.date}}</view>
+          <view class="my chat_box clearfix">
+            <view class="logo fr">
+              <open-data type="userAvatarUrl"></open-data>
+            </view>
+
+            <view class="msg fr my_msg">{{item.content}}</view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <view class="input_box" style="width:{{inputbox.width}}%;height:{{inputbox.height}}vh;">
+      <input type="text" class="input-txt" adjust-position="{{false}}"  bindfocus="fn" bindblur="fn1" bindconfirm="commit" value="{{inputVal}}"/>
+    </view>
+
+  </view>
+</view>
+</template>
+<script>
+  import wepy from 'wepy'
+  export default class Service extends wepy.page {
+    data= {
+      inputVal: '',
+      chat:{
+        width:100,
+        height:80
+      },
+      inputbox:{
+        width:100,
+        height:10
+      },
+      // scrollTop:500*100,
+      // toView: 'msg-0',
+      msgList:[{
+        type:'serve',
+        content: '欢迎您，我是娇米！',
+        date: '2018-2-2'
+      },{
+        type: 'my',
+        content: '哈哈哈哈哈',
+        date: '2019-2-2'
+      },{
+        type: 'serve',
+        content: '哈哈哈哈哈6666',
+        date: '2019-2-14'
+      },{
+        type: 'my',
+        content: '哈哈哈哈哈222',
+        date: '2019-2-14'
+      },{
+        type: 'serve',
+        content: '哈哈哈哈哈',
+        date: '2019-2-15'
+      },{
+        type: 'my',
+        content: '哈哈哈哈哈444',
+        date: '2019-2-16'
+      },{
+        type: 'my',
+        content: '哈哈哈哈哈444',
+        date: '2019-2-16'
+      },{
+        type: 'my',
+        content: '哈哈哈哈哈444',
+        date: '2019-2-16'
+      }]
+
+    }
+    methods = {
+      back () {
+        console.log('返回');
+        wx.navigateBack({
+          delta: 1
+        })
+      },
+      fn (e) {
+        console.log(e);
+        // this.scrollTop = 1000*200
+        this.chat.height =45
+        this.inputbox.height =45
+        // this.toView = 'msg-'+ (this.msgList.length-1)
+        console.log(this.toView);
+        this.$apply()
+        this.setData({
+          toView: 'msg-' + (this.msgList.length - 1)
+        })
+      },
+      fn1() {
+        this.chat.height =80
+        this.inputbox.height =10
+        // this.scrollTop = 500*100
+        // this.toView = 'msg-'+ (this.msgList.length-1)
+        this.$apply()
+        this.setData({
+          toView: 'msg-' + (this.msgList.length - 2)
+        })
+      },
+      commit (e) {
+        this.inputVal = e.detail.value
+        console.log(this.inputVal)
+        this.msgList.push({type:'my', content: `${this.inputVal}`,date:`${this.getTime()}`})
+        console.log('发送成功')
+        setTimeout(() => {
+          this.inputVal = ''
+          this.$apply()
+
+        },0);
+      }
+    }
+    getTime () {
+      let time = new Date()
+      let year = time.getFullYear()
+      let month = time.getMonth() + 1
+      let h = time.getHours()
+      let d = time.getDate()
+      let mm =  time.getMinutes()
+      return year+'-'+month+'-'+d+' '+h+':'+mm
+    }
+    onLoad() {
+      //  this.scrollTop = 500*100
+      // this.toView = 'msg-'+ (this.msgList.length-2)
+       this.setData({
+          toView: 'msg-' + (this.msgList.length -2)
+        })
+
+    }
+  }
+</script>
+
+

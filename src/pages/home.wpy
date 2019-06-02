@@ -1,0 +1,65 @@
+<style lang="less">
+.home {
+  width: 100%;
+  height: 92vh;
+  padding-top: 50rpx;
+  box-sizing: border-box;
+
+
+}
+
+
+</style>
+<template>
+  <view class="container">
+    <view class="home">
+      <!-- <view wx:if="{{currentPage==0}}">首页</view> -->
+      <index wx:if="{{currentPage==0}}"></index>
+      <view wx:if="{{currentPage==1}}">发布</view>
+      <my wx:if="{{currentPage==4}}"></my>
+      <!-- <view>123</view> -->
+    </view>
+    <navbar :currentPage.sync ="currentPage" @navbar-emit.user="fn"></navbar>
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+import Navbar from '@/components/navbar'
+import Index from './index'
+import My from './my'
+export default class Home extends wepy.page {
+  config = {
+    navigationBarTitleText: ''
+  }
+  components = {
+    navbar: Navbar,
+    my: My,
+    index: Index,
+  }
+  data = {
+    currentPage: 0
+  }
+  methods = {
+    fn(e) {
+      console.log('传递的参数',e);
+      let {currentPage} = e.source.$data
+      this.currentPage = currentPage
+      this.$apply()
+      console.log(currentPage);
+      if(currentPage == 1) {
+        wx.setNavigationBarTitle({
+          title: '发布'
+        })
+      }else{
+        wx.setNavigationBarTitle({
+          title: ''
+        })
+      }
+    }
+  }
+  onLoad () {}
+
+}
+</script>
+
+

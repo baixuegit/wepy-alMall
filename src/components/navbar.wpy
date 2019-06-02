@@ -1,0 +1,88 @@
+<style lang="less">
+  .navBar {
+    width: 100%;
+    height: 8vh;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    .item {
+      text-align: center;
+      width: 100%;
+      padding: 30rpx 0;
+    }
+    .current {
+      color: #fff;
+    }
+  }
+</style>
+<template>
+   <view class="bgc navBar flex_x_container">
+     <!-- 循环待解决高亮问题 -->
+      <!-- <view class="item {{item.current?'current':''}}" wx:for="{{list}}" wx:key="{{item.id}}" id="{{item.id}}" @tap="currentTab">{{item.name}}</view> -->
+      <view class="item {{currentPage==0?'current':''}}" id="0" @tap="currentTab">{{list[0].name}}</view>
+      <view class="item {{currentPage==1?'current':''}}" id="1" @tap="currentTab">{{list[1].name}}</view>
+      <view class="item {{currentPage==2?'current':''}}" @tap="currentTab" id="2">{{list[2].name}}</view>
+      <view class="item {{currentPage==3?'current':''}}" @tap="currentTab" id="3">{{list[3].name}}</view>
+      <view class="item {{currentPage==4?'current':''}}" @tap="currentTab" id="4">{{list[4].name}}</view>
+
+
+      <!-- <view class="item" @tap="toPath" data-path='index' data-idx='100'>123</view> -->
+      <!-- 用navigator跳转存在导航栏滑动问题 wepy不支持switchTab-->
+       <!-- <navigator class="item" url="../pages/index/index" open-type="switchTab" hover-class="none">home</navigator> -->
+    </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  export default class Navbar extends wepy.component {
+    props ={
+      currentPage: {
+        type:[String],
+        default: 0
+      }
+    }
+    data = {
+      currentPage: 0,
+      list: [
+        {name: '首页'},
+        {name: '产品'},
+        {name: '加入'},
+        {name: '动态'},
+        {name: '我的'},
+      ]
+    }
+    computed = {
+
+    }
+    toPath (path) {
+      // const {idx, path} = e.currentTarget.dataset
+      // console.log(idx)
+
+      wepy.navigateTo({
+        url: path
+      })
+
+      // wx.switchTab({
+      //   url: `/pages/index.wpy`
+      // })
+    }
+    methods = {
+      currentTab(e) {
+        console.log(e);
+        if(e.target.id == this.currentPage){
+         return false
+        }else if(e.target.id == 2) {
+          console.log('2222222');
+          this.toPath('service')
+        }else{
+          this.currentPage = e.target.id
+          this.$apply()
+        }
+        this.$emit('navbar-emit')
+      },
+
+    }
+
+  }
+</script>
+
+

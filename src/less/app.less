@@ -1,0 +1,37 @@
+.bgc {
+  background-color: red;
+}
+// 弹性盒子布局
+.flex_x_container {
+  display: flex;
+  align-items: center;
+  // justify-content: space-around;
+  justify-content: center;
+  &.r-reverse {
+    flex-direction: row-reverse;
+  }
+  &.c-reverse {
+    flex-direction: column-reverse;
+  }
+  &.column {
+    flex-direction: column;
+  }
+}
+
+.t_center {
+  text-align: center;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.clearfix:after{
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden
+}
+
