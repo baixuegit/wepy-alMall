@@ -87,6 +87,7 @@
 </style>
 <template>
 <view class="container ">
+  <i-button bind:click="handleClick" type="primary" size="large">大尺寸</i-button>
   <view class="service">
     <view class="navigation flex_x_container">
       <view class="item flex_x_container">
@@ -129,6 +130,12 @@
 <script>
   import wepy from 'wepy'
   export default class Service extends wepy.page {
+    config = {
+      navigationBarTitleText: '',
+      usingComponents: {
+        "i-button": "../view/button/index"
+      }
+    }
     data= {
       inputVal: '',
       chat:{

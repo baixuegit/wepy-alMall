@@ -11,5 +11,7 @@
 	"appid": "wxdb392690d0888476",
 	"projectname": "wepy-project",
 	"miniprogramRoot": "dist/",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {}
 }
