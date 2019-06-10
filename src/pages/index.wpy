@@ -1,6 +1,17 @@
-<style>
+<style  lang="less">
 .index {
   height: 100vh;
+  .goodsItem {
+    width: 100%;
+    height:404rpx ;
+    text-align: center;
+    padding: 20rpx 0;
+    image {
+      display: inline-block;
+      width: 689rpx;
+      height: 100%;
+    }
+  }
 }
 swiper {
   height: 601rpx;
@@ -33,16 +44,22 @@ swiper {
     <view class="index-title" style="opacity:{{opacityKey}}"> 娇米艾璐卡护肤中心</view>
     <scroll-view scroll-y="true" class="index-wapper" bindscroll="scroll" scroll-into-view="{{toView}}">
       <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
-      <block wx:for="{{lunboData}}" wx:for-item="item" wx:key="index">
-        <swiper-item>
-          <image src="{{item.imgUrl}}" id="{{item.id}}" class="swiper-image"></image>
-        </swiper-item>
-      </block>
-    </swiper>
+        <block wx:for="{{lunboData}}" wx:for-item="item" wx:key="index">
+          <swiper-item>
+            <image src="{{item.imgUrl}}" id="{{item.id}}" class="swiper-image"/>
+          </swiper-item>
+        </block>
+      </swiper>
 
       <i-notice-bar icon="systemprompt" loop>
       娇米工作室招收艾璐卡护肤品代理，工作室免费为代理定制开发同款微信小程序商城，详情请加微信
       </i-notice-bar>
+      <view class="goodsItem">
+        <image src="../statrc/images/01_03.png"/>
+      </view>
+       <view class="goodsItem">
+        <image src="../statrc/images/02_03.png"/>
+      </view>
     </scroll-view>
   </view>
 
