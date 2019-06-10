@@ -23,6 +23,8 @@ export default class extends wepy.app {
       'pages/dome',
       'pages/service',
       'pages/index1',
+       "view/tab-bar-item"// 滚动
+
     ],
     window: {
       backgroundTextStyle: 'light',

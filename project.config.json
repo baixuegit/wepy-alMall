@@ -8,8 +8,10 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"appid": "wxdb392690d0888476",
+	"appid": "wxeca2c580e9ad4b63",
 	"projectname": "wepy-project",
 	"miniprogramRoot": "dist/",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {}
 }

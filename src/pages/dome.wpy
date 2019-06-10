@@ -3,7 +3,9 @@
 </style>
 <template>
   <view>
+    <image src="../statrc/icon/jion.png" alt="" class="img"></image>
     <button size="mini" @tap="popup">弹框</button>
+    <i-button bind:click="handleClick" type="primary" size="large">大尺寸</i-button>
     <panel>
       <view class="title" slot="title">测试333列表</view>
     </panel>
@@ -21,7 +23,10 @@
   import Navbar from '@/components/navbar'
   export default class Dome extends wepy.page  {
     config = {
-      navigationBarTitleText: ''
+      navigationBarTitleText: '',
+      usingComponents: {
+        "i-button": "../view/button/index"
+      }
     }
     components = {
       panel: Panel,

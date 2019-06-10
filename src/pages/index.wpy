@@ -1,14 +1,87 @@
 <style>
+.index {
+  height: 100vh;
+}
+swiper {
+  height: 601rpx;
+  width: 100%;
+}
+.swiper-image {
+  height: 100%;
+  width: 100%;
+}
+.index-wapper {
+  height: 92vh;
+  width: 100%;
+}
+.index-title {
+  width: 100%;
+  height: 60px;
+  background-color: #fe6e6a;
+  text-align: center;
+  line-height: 70px;
+  font-size: 16px;
+   position: fixed;
+    top: 0;
+    margin-top: 0;
+    z-index: 99999;
+}
 
 </style>
 <template>
-  <view>首页1</view>
+  <view class="index">
+    <view class="index-title" style="opacity:{{opacityKey}}"> 娇米艾璐卡护肤中心</view>
+    <scroll-view scroll-y="true" class="index-wapper" bindscroll="scroll" scroll-into-view="{{toView}}">
+      <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
+      <block wx:for="{{lunboData}}" wx:for-item="item" wx:key="index">
+        <swiper-item>
+          <image src="{{item.imgUrl}}" id="{{item.id}}" class="swiper-image"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+
+      <i-notice-bar icon="systemprompt" loop>
+      娇米工作室招收艾璐卡护肤品代理，工作室免费为代理定制开发同款微信小程序商城，详情请加微信
+      </i-notice-bar>
+    </scroll-view>
+  </view>
+
 
 </template>
 <script>
   import wepy from 'wepy'
   export default class Index extends wepy.page{
-
+    config = {
+      navigationBarTitleText: '',
+        usingComponents: {
+        "i-notice-bar": "../view/notice-bar/index",
+      }
+    }
+    data = {
+       lunboData: [
+      { id: 'b1', imgUrl: '../statrc/images/01-2_01.png' },
+      { id: 'b2', imgUrl: '../statrc/images/1-1_01.png' },
+    ],
+    indicatorDots: true, //是否显示小圆点
+    circular: true, //是否是无缝轮播
+    autoplay: true, //是否自动切换
+    interval: 3000, //自动切换时间间隔
+    duration: 1000, //滑动动画时长
+    opacityKey:0,
+    }
+    methods = {
+      scroll(e) {
+        if(e.detail.scrollTop >= 100 ){
+         this.$apply()
+          this.opacityKey = (e.detail.scrollTop/100)
+        }
+        if(e.detail.scrollTop < 100) {
+          this.$apply()
+          this.opacityKey = (e.detail.scrollTop/100)
+        }
+    console.log(e.detail.scrollTop)
+  },
+      }
   }
 </script>
 

@@ -9,17 +9,29 @@
 }
 
 
+
+
+
+
 </style>
 <template>
-  <view class="container">
-    <view class="home">
-      <!-- <view wx:if="{{currentPage==0}}">首页</view> -->
+  <!-- <image src="../statrc/icon/jion.png" alt="" class="img"></image> -->
+  <view>
+    <index wx:if="{{current=='homepage'}}"></index>
+
+    <i-tab-bar current="{{ current }}" color="#fe6e6a" bindchange="handleChange" fixed="{{true}}">
+      <i-tab-bar-item key="homepage" icon="homepage" current-icon="homepage_fill" title="首页"></i-tab-bar-item>
+      <i-tab-bar-item key="group" icon="group" current-icon="group_fill" title="朋友"></i-tab-bar-item>
+      <i-tab-bar-item class='jion-item' key="jion" img='../imgs/jion.png' current-img="../imgs/jion.png"  title="加入"></i-tab-bar-item>
+      <i-tab-bar-item key="remind" icon="remind" current-icon="remind_fill" title="通知"></i-tab-bar-item>
+      <i-tab-bar-item key="mine" icon="mine" current-icon="mine_fill" title="我的"></i-tab-bar-item>
+    </i-tab-bar>
+    <!-- <view class="home">
       <index wx:if="{{currentPage==0}}"></index>
       <view wx:if="{{currentPage==1}}">发布</view>
       <my wx:if="{{currentPage==4}}"></my>
-      <!-- <view>123</view> -->
-    </view>
-    <navbar :currentPage.sync ="currentPage" @navbar-emit.user="fn"></navbar>
+    </view> -->
+    <!-- <navbar :currentPage.sync ="currentPage" @navbar-emit.user="fn"></navbar> -->
   </view>
 </template>
 <script>
@@ -27,9 +39,15 @@ import wepy from 'wepy'
 import Navbar from '@/components/navbar'
 import Index from './index'
 import My from './my'
+
 export default class Home extends wepy.page {
   config = {
-    navigationBarTitleText: ''
+    navigationBarTitleText: '',
+    usingComponents: {
+      "i-notice-bar": "../view/notice-bar/index",
+      "i-tab-bar": "../view/tab-bar/index",
+      "i-tab-bar-item": "../view/tab-bar-item/index"
+    }
   }
   components = {
     navbar: Navbar,
@@ -37,9 +55,19 @@ export default class Home extends wepy.page {
     index: Index,
   }
   data = {
-    currentPage: 0
+    currentPage: 0,
+    current: 'homepage'
   }
   methods = {
+     handleChange ( {detail} ) {
+       console.log(detail);
+
+          this.$apply()
+          this.current =  detail.key
+        // this.setData({
+        //     current: detail.key
+        // });
+    },
     fn(e) {
       console.log('传递的参数',e);
       let {currentPage} = e.source.$data
