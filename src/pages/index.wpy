@@ -96,7 +96,6 @@ swiper {
           this.$apply()
           this.opacityKey = (e.detail.scrollTop/100)
         }
-    console.log(e.detail.scrollTop)
   },
       }
   }

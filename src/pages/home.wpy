@@ -18,12 +18,14 @@
   <!-- <image src="../statrc/icon/jion.png" alt="" class="img"></image> -->
   <view>
     <index wx:if="{{current=='homepage'}}"></index>
+    <jion wx:if="{{current=='jion'}}"></jion>
+    <my wx:if="{{current=='mine'}}"></my></my>
 
     <i-tab-bar current="{{ current }}" color="#fe6e6a" bindchange="handleChange" fixed="{{true}}">
       <i-tab-bar-item key="homepage" icon="homepage" current-icon="homepage_fill" title="首页"></i-tab-bar-item>
-      <i-tab-bar-item key="group" icon="group" current-icon="group_fill" title="朋友"></i-tab-bar-item>
+      <!-- <i-tab-bar-item key="group" icon="group" current-icon="group_fill" title="朋友"></i-tab-bar-item> -->
       <i-tab-bar-item class='jion-item' key="jion" img='../imgs/jion.png' current-img="../imgs/jion.png"  title="加入"></i-tab-bar-item>
-      <i-tab-bar-item key="remind" icon="remind" current-icon="remind_fill" title="通知"></i-tab-bar-item>
+      <!-- <i-tab-bar-item key="remind" icon="remind" current-icon="remind_fill" title="通知"></i-tab-bar-item> -->
       <i-tab-bar-item key="mine" icon="mine" current-icon="mine_fill" title="我的"></i-tab-bar-item>
     </i-tab-bar>
     <!-- <view class="home">
@@ -39,6 +41,7 @@ import wepy from 'wepy'
 import Navbar from '@/components/navbar'
 import Index from './index'
 import My from './my'
+import Jion from './jion'
 
 export default class Home extends wepy.page {
   config = {
@@ -53,6 +56,7 @@ export default class Home extends wepy.page {
     navbar: Navbar,
     my: My,
     index: Index,
+    jion:Jion
   }
   data = {
     currentPage: 0,
