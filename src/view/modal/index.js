@@ -14,6 +14,10 @@ Component({
             type: Boolean,
             value: true
         },
+        isShoeBtn:{
+          type: Boolean,
+          value: true
+        },
         showCancel: {
             type: Boolean,
             value: true

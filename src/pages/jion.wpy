@@ -1,14 +1,65 @@
-<style>
+<style  lang="less">
+.jion-page {
+  padding-top: 200px;
+  width: 100%;
+  height: 92vh;
+  box-sizing: border-box;
+  position: relative;
+  .jion-bg {
+    display: inline-block;
+    width: 100%;
+    height: 92vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+
+  .card-item {
+    width: 494rpx;
+    height: 700rpx;
+    background: #ff0;
+    margin:0 10px;
+    display: inline-block;
+    border-radius: 10px;
+    box-shadow: 3px 2px 5px #ccc;
+  }
+  .cerd-wapper {
+    width: 100%;
+    padding: 0 10px;
+    height: 710rpx;
+    white-space: nowrap;
+    box-sizing: border-box;
+
+  }
+}
 
 </style>
 <template>
-      <view>加入我们</view>
+      <view class="jion-page" >
+        <image class="jion-bg" src="../statrc/images/bg.png"></image>
+        <view class="page-title" style="opacity:{{opacityKey}}">呦蓝艾璐卡-代理</view>
+        <scroll-view scroll-x style="width:100%" class="cerd-wapper">
+            <block wx:for="{{cardData}}" wx:for-item="item" wx:key="item.id">
+              <view class="card-item" id="{{item.id}}"></view>
+            </block>
+        </scroll-view>
+      </view>
 
 </template>
 <script>
   import wepy from 'wepy'
   export default class My extends wepy.page{
+    config = {
 
+    }
+    data = {
+      cardData:[
+        {id:'a1'},
+        {id:'a2'},
+        {id:'a3'}
+      ]
+    }
   }
 </script>
 

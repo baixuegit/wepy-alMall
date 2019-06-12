@@ -25,26 +25,31 @@ swiper {
   height: 92vh;
   width: 100%;
 }
-.index-title {
-  width: 100%;
-  height: 60px;
-  background-color: #fe6e6a;
-  text-align: center;
-  line-height: 70px;
-  font-size: 16px;
-   position: fixed;
-    top: 0;
-    margin-top: 0;
-    z-index: 99999;
-}
 
 </style>
 <template>
   <view class="index">
-    <view class="index-title" style="opacity:{{opacityKey}}"> 娇米艾璐卡护肤中心</view>
-    <scroll-view scroll-y="true" class="index-wapper" bindscroll="scroll" scroll-into-view="{{toView}}">
-      <swiper indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
-        <block wx:for="{{lunboData}}" wx:for-item="item" wx:key="index">
+    <view class="page-title" style="opacity:{{opacityKey}}">呦蓝艾璐卡护肤</view>
+    <scroll-view
+      scroll-y="true"
+      class="index-wapper"
+      bindscroll="scroll"
+      scroll-into-view="{{toView}}"
+    >
+      <swiper
+        indicator-dots="{{indicatorDots}}"
+        indicator-color="{{indicatorColor}}"
+        indicator-active-color="{{indicatorActiveColor}}"
+        autoplay="{{autoplay}}"
+        interval="{{interval}}"
+        duration="{{duration}}"
+        circular="{{circular}}"
+      >
+        <block
+          wx:for="{{lunboData}}"
+          wx:for-item="item"
+          wx:key="index"
+        >
           <swiper-item>
             <image src="{{item.imgUrl}}" id="{{item.id}}" class="swiper-image"/>
           </swiper-item>
