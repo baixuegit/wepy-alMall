@@ -5,6 +5,7 @@
   height: 92vh;
   box-sizing: border-box;
   position: relative;
+  background-color: #FDF7EB;
   .jion-bg {
     display: inline-block;
     width: 100%;
@@ -37,7 +38,7 @@
 </style>
 <template>
       <view class="jion-page" >
-        <image class="jion-bg" src="../statrc/images/bg.png"></image>
+        <!-- <image class="jion-bg" src="../statrc/images/bg.png"></image> -->
         <view class="page-title" style="opacity:{{opacityKey}}">呦蓝艾璐卡-代理</view>
         <scroll-view scroll-x style="width:100%" class="cerd-wapper">
             <block wx:for="{{cardData}}" wx:for-item="item" wx:key="item.id">
