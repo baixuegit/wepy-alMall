@@ -17,6 +17,9 @@
 <script>
   import wepy from 'wepy'
   export default class My extends wepy.page{
+    props = {
+      userInfo: Object
+    }
     config = {
 
     }
@@ -27,6 +30,10 @@
       getUser() {
         console.log('wwww');
       }
+    }
+    onShow () {
+      console.log('1111');
+
     }
     onLoad () {
       console.log('我的页面三生三世');

@@ -26,7 +26,7 @@
   <view class="home-wapper">
     <index wx:if="{{current=='homepage'}}"></index>
     <jion wx:if="{{current=='jion'}}"></jion>
-    <my wx:if="{{current=='mine'}}"></my>
+    <my userInfo="{{userInfo}}" wx:if="{{current=='mine'}}"></my>
 
     <i-tab-bar current="{{ current }}" color="#fe6e6a" bindchange="handleChange" fixed="{{true}}">
       <i-tab-bar-item key="homepage" icon="homepage" current-icon="homepage_fill" title="首页"></i-tab-bar-item>
@@ -74,15 +74,29 @@ export default class Home extends wepy.page {
   }
   data = {
     getUset: false, // 获取用户信息
+    userInfo: '', // 获取的用户信息
     currentPage: 0,
     current: 'homepage',
   }
   methods = {
      handleChange ( {detail} ) {
        console.log(detail);
-          this.$apply()
           if(detail.key === 'mine') {
-            this.getUset = true
+            const that = this
+            wx.getSetting({
+              success(res){
+                if (!res.authSetting['scope.userInfo']) {
+                  console.log('scope.userInfo',res.authSetting['scope.userInfo']);
+                  that.getUset = true
+                  that.$apply()
+
+                }else {
+                  that.current =  detail.key
+                  that.$apply()
+                }
+              }
+            })
+            
             return
           }
           this.current =  detail.key
@@ -93,10 +107,10 @@ export default class Home extends wepy.page {
         // });
     },
     onGotUserInfo: function(e) {
-      console.log(e.detail.errMsg)
-      console.log(e.detail.userInfo)
-      console.log(e.detail)
+      console.log(e.detail.userInfo);
+      
       if(e.detail.userInfo) {
+        this.userInfo = e.detail.userInfo
         this.getUset = false
         this.current =  'mine'
       }
