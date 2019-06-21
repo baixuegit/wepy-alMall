@@ -64,6 +64,11 @@ export default class Home extends wepy.page {
       "i-tab-bar-item": "../view/tab-bar-item/index",
       "i-modal": "../view/modal/index",
       "i-notice-bar": "../view/notice-bar/index",
+      "i-grid": "../view/grid/index",
+      "i-grid-item": "../view/grid-item/index",
+      "i-grid-icon": "../view/grid-icon/index",
+      "i-grid-label": "../view/grid-label/index",
+      "i-icon": "../view/icon/index"
     }
   }
   components = {

@@ -1,4 +1,4 @@
-<style>
+<style  lang="less">
 .my {
    padding-top: 252px;
   width: 100%;
@@ -16,22 +16,176 @@
   }
   .yun {
     display: inline-block;
-    width: 194rpx;
-    height: 118rpx;
+    width: 174rpx;
+    height: 98rpx;
      position: absolute;
     left: 0;
-    bottom: 200px;
+    bottom: 400rpx;
+    animation:myfirst 30s infinite linear;
+    -webkit-animation:myfirst 30s infinite linear; /* Safari 和 Chrome */
   }
-
+   .yun2 {
+    display: inline-block;
+    width: 175rpx;
+    height: 65rpx;
+     position: absolute;
+    left: 200px;
+    bottom: 500rpx;
+    animation:yun2 50s infinite linear;
+    -webkit-animation:yun2 50s infinite linear; /* Safari 和 Chrome */
+  }
+  @keyframes myfirst
+    {
+    0%   {left:0px; bottom:500rpx;}
+    25%  {left:200rpx; bottom:500rpx;}
+    50%  {left:600rpx; bottom:600rpx;}
+    75%  {left:300rpx; bottom:600rpx;}
+    100% {left:0rpx; bottom:500rpx;}
+    }
+  @keyframes yun2
+  {
+  0%   {left:100rpx; bottom:600rpx;}
+  25%  {left:400rpx; bottom:600rpx;}
+  50%  {left:600rpx; bottom:400rpx;}
+  75%  {left:500rpx; bottom:400rpx;}
+  100% {left:100rpx; bottom:600rpx;}
+  }
+  .my-connent {
+    width: 100%;
+    position: absolute;
+    left: 0;  
+    top: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+  }
+  .user-info {
+    padding:150rpx 40rpx 40rpx;
+    
+    display: flex;
+    align-items: center;
+    .userAvatarUrl {
+      float: left;
+      width: 150rpx;
+      height: 150rpx;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 1px 1px 5px #FC7974;
+      margin-right: 20px;
+    }
+    .userNickName {
+      float: left;
+    }
+    .user-level {
+      position: absolute;
+      left: 215rpx;
+      top: 255rpx;
+      color:#fff;
+      font-size: 12px;
+      padding: 5rpx 20rpx;
+      border-radius: 40rpx;
+      background-color: #EAA01C;
+    }
+  }
+  .grid-wapper {
+    background-color: rgba(255,255,255,0.6);
+  }
+  
+ 
 </style>
 <template>
       <view class="my">
-         <image class="my-bg" src="../statrc/images/bg-02.png"></image>
-         <image class="yun" src="../statrc/images/yun1.png"></image>
-        <view class="logo fr">
-          <open-data type="userAvatarUrl"></open-data>
+         
+         <image class="my-bg" src="../statrc/images/bg-02.png"/>
+         <image class="yun" src="../statrc/images/yun1.png"/>
+         <image class="yun2" src="../statrc/images/yun2.png"/>
+        <view class="page-title" style="opacity:{{opacityKey}}">呦蓝艾璐卡-代理</view>
+        <view class="my-connent">
+          <view class="user-info">
+          <view class="userAvatarUrl">
+            <open-data type="userAvatarUrl" class="userNickName"></open-data>
+          </view>
           <open-data type="userNickName"></open-data>
+          <view class="user-level">
+            <text >超级会员</text>
+          </view>
         </view>
+        <view class="grid-wapper">
+           <i-grid>
+            <i-grid-item @tap="jion" >
+                <i-grid-icon>
+                  <i-icon type="integral" size="30" color="#fe6e6a"/>
+                    <!-- <image src="../images/icon-vip.png" /> -->
+                </i-grid-icon>
+                <i-grid-label>成为代理</i-grid-label>
+            </i-grid-item>
+            <i-grid-item>
+                <i-grid-icon>
+                  <i-icon type="customerservice" size="30" color="#EAA01C" />
+                </i-grid-icon>
+                <i-grid-label>在线客服</i-grid-label>
+            </i-grid-item>
+            <i-grid-item>
+                <i-grid-icon>
+                  <i-icon type="interactive" size="30" color="#A7AD4D"/>
+                </i-grid-icon>
+                <i-grid-label>联系我们</i-grid-label>
+            </i-grid-item>
+            
+          </i-grid>
+          <i-grid>
+            <i-grid-item>
+                <i-grid-icon>
+                  <i-icon type="coupons" size="30" color="#93B9E4"/>
+                    <!-- <image src="../images/icon-vip.png" /> -->
+                </i-grid-icon>
+                <i-grid-label>优惠卷</i-grid-label>
+            </i-grid-item>
+            <i-grid-item>
+                <i-grid-icon>
+                  <i-icon type="tasklist" size="30" color="#fe6e6a"/>
+                </i-grid-icon>
+                <i-grid-label>卡包</i-grid-label>
+            </i-grid-item>
+            <i-grid-item>
+                <i-grid-icon>
+                  <i-icon type="group" size="30"/>
+                </i-grid-icon>
+                <i-grid-label>关于我们</i-grid-label>
+            </i-grid-item>
+            
+          </i-grid>
+           <i-grid>
+            <i-grid-item>
+                <i-grid-icon>
+                  <i-icon type="createtask" size="30" color="#fe6e6a"/>
+                    <!-- <image src="../images/icon-vip.png" /> -->
+                </i-grid-icon>
+                <i-grid-label>护肤资讯</i-grid-label>
+            </i-grid-item>
+            <i-grid-item>
+                <i-grid-icon>
+                  <i-icon type="like" size="30" color="#F09D98"/>
+                </i-grid-icon>
+                <i-grid-label>免费试用</i-grid-label>
+            </i-grid-item>
+            <i-grid-item>
+                <i-grid-icon>
+                  <i-icon type="more" size="30"/>
+                </i-grid-icon>
+                <i-grid-label>更多</i-grid-label>
+            </i-grid-item>
+          </i-grid>
+        </view>
+        </view>
+        <i-modal title="欢迎你的加入" visible="{{ jionUs }}" isShoeBtn="{{false}}">
+          <view>了解更多，代理优惠，请加微信</view>
+            <text>微信号：</text>
+            <text selectable='true' @tap="copy">
+            jiaomi889988</text>
+          <view>长按复制微信号</view>
+        </i-modal>
       </view>
 
 </template>
@@ -45,11 +199,16 @@
 
     }
     data = {
+      jionUs: false
 
     }
     methods = {
-      getUser() {
-        console.log('wwww');
+      jion() {
+        this.jionUs = true
+      },
+      copy (e) {
+        console.log(e);
+        
       }
     }
     onShow () {

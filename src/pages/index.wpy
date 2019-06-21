@@ -25,6 +25,23 @@ swiper {
   height: 92vh;
   width: 100%;
 }
+.icons {
+  padding-top: 20rpx;
+  view {
+    display: inline-block;
+    width:33%;  
+    text-align: center;
+    image {
+      display: block;
+      margin: 0 auto;
+      width: 100rpx;
+      height: 100rpx;
+    }
+    text {
+      font-size: 12px;
+    }
+  }
+}
 
 </style>
 <template>
@@ -55,10 +72,23 @@ swiper {
           </swiper-item>
         </block>
       </swiper>
-
       <i-notice-bar icon="systemprompt" loop>
       娇米工作室招收艾璐卡护肤品代理，工作室免费为代理定制开发同款微信小程序商城，详情请加微信
       </i-notice-bar>
+      <view class="icons">
+        <view>
+          <image src="../statrc/images/1icon.png"> 
+          <text>产品介绍</text>
+        </view>
+        <view>
+          <image src="../statrc/images/icon-2.png">
+          <text>公司介绍</text>
+        </view>
+        <view>
+          <image src="../statrc/images/icon-3.png"> 
+          <text>加入我们</text>
+        </view>
+      </view>
       <view class="goodsItem">
         <image src="../statrc/images/01_03.png"/>
       </view>
