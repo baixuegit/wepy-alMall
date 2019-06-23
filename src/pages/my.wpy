@@ -53,7 +53,7 @@
   .my-connent {
     width: 100%;
     position: absolute;
-    left: 0;  
+    left: 0;
     top: 0;
     position: absolute;
     left: 0;
@@ -62,7 +62,7 @@
   }
   .user-info {
     padding:150rpx 40rpx 40rpx;
-    
+
     display: flex;
     align-items: center;
     .userAvatarUrl {
@@ -91,12 +91,12 @@
   .grid-wapper {
     background-color: rgba(255,255,255,0.6);
   }
-  
- 
+
+
 </style>
 <template>
       <view class="my">
-         
+
          <image class="my-bg" src="../statrc/images/bg-02.png"/>
          <image class="yun" src="../statrc/images/yun1.png"/>
          <image class="yun2" src="../statrc/images/yun2.png"/>
@@ -132,7 +132,7 @@
                 </i-grid-icon>
                 <i-grid-label>联系我们</i-grid-label>
             </i-grid-item>
-            
+
           </i-grid>
           <i-grid>
             <i-grid-item>
@@ -154,7 +154,7 @@
                 </i-grid-icon>
                 <i-grid-label>关于我们</i-grid-label>
             </i-grid-item>
-            
+
           </i-grid>
            <i-grid>
             <i-grid-item>
@@ -179,36 +179,61 @@
           </i-grid>
         </view>
         </view>
-        <i-modal title="欢迎你的加入" visible="{{ jionUs }}" isShoeBtn="{{false}}">
+        <modal :isShowModal.sync = "jionUs">
+          <view slot="title" class="title">欢迎你的加入</view>
+          <view slot="body">
+            微信号：
+            <text selectable = "true">jiaomi889988</text>
+            <view>（长按微信号即可复制）</view>
+          </view>
+          <view slot="footer" class="footer x-center">
+            <view class="leftBtn btn">返回</view>
+            <view class="rightBtn btn">一键复制</view>
+          </view>
+        </modal>
+
+        <!-- <modalbox></modalbox> -->
+        <!-- <i-modal title="欢迎你的加入" visible="{{ jionUs }}" isShoeBtn="{{false}}">
           <view>了解更多，代理优惠，请加微信</view>
             <text>微信号：</text>
             <text selectable='true' @tap="copy">
             jiaomi889988</text>
           <view>长按复制微信号</view>
-        </i-modal>
+        </i-modal> -->
       </view>
 
 </template>
 <script>
   import wepy from 'wepy'
+  // import Modalbox from '@/components/modalbox'
+  // import Navbar from '@/components/navbar'
+import Modal from '@/components/modal'
+
   export default class My extends wepy.page{
     props = {
       userInfo: Object
+    }
+    components = {
+    modal:Modal
+
+      //  modalbox:Modalbox
     }
     config = {
 
     }
     data = {
-      jionUs: false
+      jionUs: true
 
     }
     methods = {
       jion() {
+        console.log('加入');
         this.jionUs = true
+        this.$apply()
       },
       copy (e) {
         console.log(e);
-        
+
       }
     }
     onShow () {

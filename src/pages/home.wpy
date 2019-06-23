@@ -38,7 +38,7 @@
     <i-modal title="需要您的授权" visible="{{ getUset }}" isShoeBtn="{{false}}">
       <view>为了提供更好的服务</view>
       <view>请稍后的提示框中点击‘允许’</view>
-      <view class="inModal"></view>    
+      <view class="inModal"></view>
       <button type="primary" size="mini" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">我知道了</button>
     </i-modal>
     <!-- <view class="home">
@@ -75,7 +75,8 @@ export default class Home extends wepy.page {
     navbar: Navbar,
     my: My,
     index: Index,
-    jion:Jion
+    jion:Jion,
+    // modalbox:Modalbox
   }
   data = {
     getUset: false, // 获取用户信息
@@ -101,19 +102,19 @@ export default class Home extends wepy.page {
                 }
               }
             })
-            
+
             return
           }
           this.current =  detail.key
 
-           
+
         // this.setData({
         //     current: detail.key
         // });
     },
     onGotUserInfo: function(e) {
       console.log(e.detail.userInfo);
-      
+
       if(e.detail.userInfo) {
         this.userInfo = e.detail.userInfo
         this.getUset = false

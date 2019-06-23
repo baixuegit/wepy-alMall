@@ -17,6 +17,18 @@
     flex-direction: column;
   }
 }
+// 弹性盒子水平垂直居中
+.x-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &.end {
+    justify-content: flex-end;
+  }
+  &.start {
+    justify-content: flex-start;
+  }
+}
 
 .t_center {
   text-align: center;
@@ -34,4 +46,6 @@
   clear: both;
   visibility: hidden
 }
+
+
 

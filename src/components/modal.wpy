@@ -1,0 +1,103 @@
+<style lang="less">
+.pop-up {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+
+}
+.content_wapper {
+  display: flex;
+  flex-direction:column ;
+  justify-content:space-around;
+  // align-items: center;
+  //  justify-content: center;
+  // &.end {
+  //   justify-content: flex-end;
+  // }
+  //       &.start {
+  //   justify-content: flex-start;
+  // }
+    position: relative;
+    left: 0;
+    top: 0;
+    z-index: 10000;
+    width: 500rpx;
+    height: 445rpx;
+    border-radius: 25rpx;
+    background-color: #fff;
+    font-size: 14px;
+    .title {
+      text-align: center;
+      font-weight: bold;
+    }
+    .footer {
+      display: flex;
+      justify-content:space-around;
+
+      .btn {
+        border: 0 none;
+        width: 180rpx;
+        height: 70rpx;
+        line-height: 70rpx;
+        text-align: center;
+        border-radius:35rpx;
+
+      }
+     .leftBtn{
+       background:#E9E9EF;
+     }
+     .rightBtn {
+       background:linear-gradient(-145deg, #FFA0FC 5%, #FF8E89 100%);;
+     }
+    }
+  }
+
+</style>
+<template>
+<view wx:if = "{{isShowModal}}" class="x-center">
+ <view class="pop-up "  @tap="colseModal">
+  </view>
+  <view class="content_wapper" @tap="sddsds">
+    <slot name="title" >modal</slot>
+    <slot name="body"></slot>
+    <slot name="footer"></slot>
+  </view>
+</view>
+
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class Modal extends wepy.component {
+    props = {
+      isShowModal: {
+        type: Boolean,
+        default: false,
+        twoWay: true
+      }
+
+    }
+    data = {
+      // isShowModal: false
+    }
+    methods = {
+      colseModal() {
+        console.log('wwwww');
+        this.isShowModal = false
+      },
+      sddsds() {
+        console.log('ssss');
+      }
+    }
+    onLoad () {
+      console.log();
+      this.$parent.$apply()
+
+
+    }
+  }
+</script>
