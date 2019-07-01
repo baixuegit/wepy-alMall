@@ -1,47 +1,66 @@
 <style  lang="less">
 .jion-page {
-  padding-top: 80px;
+  // padding-top: 80px;
   width: 100%;
-  height: 92vh;
+  height: 100vh;
   box-sizing: border-box;
-  position: relative;
   background-color: #FDF7EB;
-  .my-bg {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
+  position: relative;
   .jion-bg {
     display: inline-block;
     width: 100%;
-    height: 92vh;
-    position: absolute;
+    // height: 100%;
+    position: relative;
     left: 0;
-    top: 0;
+    top: -5px;
   }
-
+  // .jion-bg {
+  //   display: inline-block;
+  //   width: 100%;
+  //   height: 92vh;
+  //   position: absolute;
+  //   left: 0;
+  //   top: 0;
+  // }
+  .dl-title {
+    padding:0 0 10rpx 20rpx;
+    // position: absolute;
+    // left: 0;
+    // top: 50px;
+    // position: absolute;
+    // top: 465rpx;
+    // left: 50rpx;
+  }
 
   .card-item {
     width: 540rpx;
     height: 700rpx;
-    background: rgba(255, 255, 255, .6);
+    // background: rgba(255, 255, 255, 1);
     margin:0 10px;
     display: inline-block;
-    border-radius: 10px;
-    box-shadow: 3px 2px 5px #ccc;
+    border-radius: 20px;
+    box-shadow: 3px 2px 5px #cbdbe1;
+    // word-wrap: break-word;
+    // word-break: break-all;
+    // white-space: pre-wrap;
+    overflow: hidden;
+    image {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
   }
   .cerd-wapper {
-    position: absolute;
-    bottom: 20rpx;
-    left: 0;
+
+    // position: absolute;
+    // top: 515rpx;
+    // left: 0;
     width: 100%;
-    padding: 0 10px;
+    margin-bottom: 150rpx;
     height: 710rpx;
     white-space: nowrap;
     box-sizing: border-box;
+
 
   }
   .info-wapper {
@@ -74,9 +93,8 @@
 </style>
 <template>
       <view class="jion-page" >
-         <image class="my-bg" src="../statrc/images/bg.png"/>
+         <image class="jion-bg" src="../statrc/images/jion-ba.png"/>
         <!-- <image class="jion-bg" src="../statrc/images/bg.png"></image> -->
-        <view class="page-title" style="opacity:{{opacityKey}}">呦蓝艾璐卡-代理</view>
         <!-- <view class="info-wapper">
           <view class="logo">
             <image src='../statrc/images/bx.jpg' />
@@ -88,9 +106,19 @@
 
 
         </view> -->
-        <scroll-view scroll-x style="width:100%" class="cerd-wapper">
+        <view class="dl-title">
+          <i-icon type="like_fill" color="#fe6e6a" size="20"/>
+          {{title}}
+        </view>
+        <scroll-view
+        scroll-x style="width:100%"
+        class="cerd-wapper"
+        bindscroll="aa"
+        >
             <block wx:for="{{cardData}}" wx:for-item="item" wx:key="item.id">
-              <view class="card-item" id="{{item.id}}"></view>
+              <view class="card-item" id="{{item.id}}">
+                <image src="{{item.img}}"></image>
+              </view>
             </block>
         </scroll-view>
       </view>
@@ -103,11 +131,44 @@
 
     }
     data = {
+      title: "品牌介绍-艾璐卡",
+
       cardData:[
-        {id:'a1'},
-        {id:'a2'},
-        {id:'a3'}
+        {
+          id:'a1',
+          img:'../statrc/images/card-01.png'
+        },
+        {
+          id:'a2',
+          img:'../statrc/images/card-02.png'
+        },
+        {
+          id:'a3',
+          img:'../statrc/images/card-04.png'
+        },
+        {
+          id:'a4',
+          img:'../statrc/images/card-03.png'
+        },
       ]
+    }
+    methods = {
+      aa(e) {
+        const scrollLeft = e.detail.scrollLeft
+        console.log(scrollLeft);
+        if( scrollLeft >= 150 && scrollLeft < 400) {
+          this.title = '品牌介绍-纽西之谜'
+        }else
+        if( scrollLeft >= 400 && scrollLeft < 740) {
+          this.title = '诚招代理'
+        }else
+        if( scrollLeft >= 740) {
+          this.title = '娇米工作室'
+        }else {
+          this.title = '品牌介绍-艾璐卡'
+        }
+        // console.log('222');
+      }
     }
   }
 </script>

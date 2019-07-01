@@ -113,20 +113,21 @@
         </view>
         <view class="grid-wapper">
            <i-grid>
-            <i-grid-item @tap="jion" >
+            <i-grid-item @tap="show(jionUs)">
                 <i-grid-icon>
                   <i-icon type="integral" size="30" color="#fe6e6a"/>
                     <!-- <image src="../images/icon-vip.png" /> -->
                 </i-grid-icon>
                 <i-grid-label>成为代理</i-grid-label>
             </i-grid-item>
-            <i-grid-item>
+            <i-grid-item @tap="show(kefu)">
                 <i-grid-icon>
                   <i-icon type="customerservice" size="30" color="#EAA01C" />
                 </i-grid-icon>
+
                 <i-grid-label>在线客服</i-grid-label>
             </i-grid-item>
-            <i-grid-item>
+            <i-grid-item @tap="phone">
                 <i-grid-icon>
                   <i-icon type="interactive" size="30" color="#A7AD4D"/>
                 </i-grid-icon>
@@ -135,20 +136,20 @@
 
           </i-grid>
           <i-grid>
-            <i-grid-item>
+            <i-grid-item @tap="show(couponsModal)">
                 <i-grid-icon>
                   <i-icon type="coupons" size="30" color="#93B9E4"/>
                     <!-- <image src="../images/icon-vip.png" /> -->
                 </i-grid-icon>
                 <i-grid-label>优惠卷</i-grid-label>
             </i-grid-item>
-            <i-grid-item>
+            <i-grid-item  @tap="show(moreModal)">
                 <i-grid-icon>
                   <i-icon type="tasklist" size="30" color="#fe6e6a"/>
                 </i-grid-icon>
                 <i-grid-label>卡包</i-grid-label>
             </i-grid-item>
-            <i-grid-item>
+            <i-grid-item @tap="show(moreModal)">
                 <i-grid-icon>
                   <i-icon type="group" size="30"/>
                 </i-grid-icon>
@@ -157,20 +158,20 @@
 
           </i-grid>
            <i-grid>
-            <i-grid-item>
+            <i-grid-item  @tap="show(moreModal)">
                 <i-grid-icon>
                   <i-icon type="createtask" size="30" color="#fe6e6a"/>
                     <!-- <image src="../images/icon-vip.png" /> -->
                 </i-grid-icon>
                 <i-grid-label>护肤资讯</i-grid-label>
             </i-grid-item>
-            <i-grid-item>
+            <i-grid-item @tap="show(couponsModal)">
                 <i-grid-icon>
                   <i-icon type="like" size="30" color="#F09D98"/>
                 </i-grid-icon>
                 <i-grid-label>免费试用</i-grid-label>
             </i-grid-item>
-            <i-grid-item>
+            <i-grid-item @tap="show(moreModal)">
                 <i-grid-icon>
                   <i-icon type="more" size="30"/>
                 </i-grid-icon>
@@ -179,20 +180,104 @@
           </i-grid>
         </view>
         </view>
-        <modal :isShowModal.sync = "jionUs">
+
+        <modal wx:if= "{{jionUs}}">
           <view slot="title" class="title">欢迎你的加入</view>
           <view slot="body">
-            微信号：
-            <text selectable = "true">jiaomi889988</text>
-            <view>（长按微信号即可复制）</view>
+            <view class="body-text">
+              微信号：
+              <text selectable = "true" >jiaomi889988</text>
+              <view>（长按微信号即可复制）</view>
+            </view>
           </view>
           <view slot="footer" class="footer x-center">
-            <view class="leftBtn btn">返回</view>
-            <view class="rightBtn btn">一键复制</view>
+            <view class="leftBtn btn" @tap="goback(jionUs)">返回</view>
+            <view
+            class="rightBtn btn copyBtn"
+            @tap="copy">复制微信号</view>
           </view>
         </modal>
+        <modal wx:if= "{{kefu}}">
+          <view slot="title" class="title">在线客服</view>
+          <view slot="body">
+            <view class="body-text">
+              微信号：
+              <text selectable = "true" >jiaomi889988</text>
+              <view>（长按微信号即可复制）</view>
+            </view>
+          </view>
+          <view slot="footer" class="footer x-center">
+            <view class="leftBtn btn" @tap="goback(kefu)">返回</view>
+            <button open-type="contact"   class="rightBtn btn" style="margin:0;font-size:12px">
+              在线客服
+            </button>
+            <!-- <view
+            class="rightBtn btn"
+            @tap="service">在线客服</view> -->
+          </view>
+        </modal>
+        <modal wx:if= "{{couponsModal}}">
+          <view slot="title" class="title">优惠卷+试用装</view>
+          <view slot="body">
+            <view class="body-text">
+              <view>10元无门槛优惠卷+试用装</view>
+              <view>添加微信直接使用</view>
+              微信号：
+              <text selectable = "true" >jiaomi889988</text>
+              <view>（长按微信号即可复制）</view>
+            </view>
+          </view>
+          <view slot="footer" class="footer x-center">
+            <view class="leftBtn btn" @tap="goback(couponsModal)">返回</view>
+            <view
+            class="rightBtn btn copyBtn"
+            @tap="copy">复制微信号</view>
+          </view>
+            <!-- <view
+            class="rightBtn btn"
+            @tap="service">在线客服</view> -->
+          </view>
+        </modal>
+        <modal wx:if= "{{moreModal}}">
+          <view slot="title" class="title">优惠卷+试用装</view>
+          <view slot="body">
+            <view class="body-text">
+              <view>跟多功能正在开发中...</view>
+              微信号：
+              <text selectable = "true" >jiaomi889988</text>
+              <view>（长按微信号即可复制）</view>
+            </view>
+          </view>
+          <view slot="footer" class="footer x-center">
+            <view class="leftBtn btn" @tap="goback(moreModal)">返回</view>
+            <view
+            class="rightBtn btn copyBtn"
+            @tap="copy">复制微信号</view>
+          </view>
+            <!-- <view
+            class="rightBtn btn"
+            @tap="service">在线客服</view> -->
+          </view>
+        </modal>
+        <!-- <modal :isShowModal.sync = "jionUs">
+          <view slot="title" class="title">欢迎你的加入</view>
+          <view slot="body">
+            <view class="body-text">
+              微信号：
+              <text selectable = "true" >jiaomi889988</text>
+              <view>（长按微信号即可复制）</view>
+            </view>
+          </view>
+          <view slot="footer" class="footer x-center">
+            <view class="leftBtn btn" @tap="goback(jionUs)">返回</view>
+            <view
+            class="rightBtn btn copyBtn"
+            @tap="copy">一键复制</view>
+          </view>
+        </modal> -->
 
-        <!-- <modalbox></modalbox> -->
+
+
         <!-- <i-modal title="欢迎你的加入" visible="{{ jionUs }}" isShoeBtn="{{false}}">
           <view>了解更多，代理优惠，请加微信</view>
             <text>微信号：</text>
@@ -205,36 +290,54 @@
 </template>
 <script>
   import wepy from 'wepy'
-  // import Modalbox from '@/components/modalbox'
-  // import Navbar from '@/components/navbar'
-import Modal from '@/components/modal'
+  import Modal from '@/components/modal'
 
   export default class My extends wepy.page{
     props = {
       userInfo: Object
     }
     components = {
-    modal:Modal
-
+      modal:Modal
       //  modalbox:Modalbox
     }
     config = {
 
     }
     data = {
-      jionUs: true
+      jionUs: false,
+      kefu:false,
+      couponsModal:false,
+      moreModal: false,
+
 
     }
     methods = {
-      jion() {
-        console.log('加入');
-        this.jionUs = true
+
+      phone() {
+        wx.makePhoneCall({
+          phoneNumber: '13771584373'
+        })
+      },
+      // show
+      show(type) {
+        this[type] = true
+      },
+      // 返回
+      goback (type) {
+        console.log(type);
+        this[type] = false
         this.$apply()
       },
-      copy (e) {
-        console.log(e);
-
-      }
+      copy () {
+        wx.setClipboardData({
+          data:'jiaomi889988',
+          success: function (res) {
+            wx.showToast({
+              title: '复制成功',
+            })
+          }
+        })
+      },
     }
     onShow () {
       console.log('1111');

@@ -14,6 +14,25 @@
 .inModal {
   height: 20px;
 }
+.floatBox {
+  position: fixed;
+  bottom: 20rpx;
+  right: 0;
+  width: 100rpx;
+  height: 400rpx;
+  padding-right: 5px;
+  text-align: center;
+  image {
+    display: inline-block;
+    width: 58px;
+    height: 58px;
+  }
+  .image1 {
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+  }
+}
 
 
 
@@ -24,10 +43,31 @@
 <template>
   <!-- <image src="../statrc/icon/jion.png" alt="" class="img"></image> -->
   <view class="home-wapper">
-    <index wx:if="{{current=='homepage'}}"></index>
+  <modal wx:if= "{{jionUs}}">
+      <view slot="title" class="title">欢迎你的加入</view>
+      <view slot="body">
+        <view class="body-text">
+          微信号：
+          <text selectable = "true" >jiaomi889988</text>
+          <view>（长按微信号即可复制）</view>
+        </view>
+      </view>
+      <view slot="footer" class="footer x-center">
+        <view class="leftBtn btn" @tap="goback(jionUs)">返回</view>
+        <view
+        class="rightBtn btn copyBtn"
+        @tap="copy">复制微信号</view>
+      </view>
+    </modal>
+    <index wx:if="{{current=='homepage'}}" :current.sync = "current"></index>
     <jion wx:if="{{current=='jion'}}"></jion>
     <my userInfo="{{userInfo}}" wx:if="{{current=='mine'}}"></my>
-
+    <!-- 侧边固定 -->
+    <view class="floatBox">
+      <image class="image1" src="../statrc/images/phon.png" @tap="callPhone"/>
+      <image src="../statrc/images/wx.png" @tap="show(jionUs)"/>
+    </view>
+    <!-- 菜单栏 -->
     <i-tab-bar current="{{ current }}" color="#fe6e6a" bindchange="handleChange" fixed="{{true}}">
       <i-tab-bar-item key="homepage" icon="homepage" current-icon="homepage_fill" title="首页"></i-tab-bar-item>
       <!-- <i-tab-bar-item key="group" icon="group" current-icon="group_fill" title="朋友"></i-tab-bar-item> -->
@@ -35,12 +75,16 @@
       <!-- <i-tab-bar-item key="remind" icon="remind" current-icon="remind_fill" title="通知"></i-tab-bar-item> -->
       <i-tab-bar-item key="mine" icon="mine" current-icon="mine_fill" title="我的"></i-tab-bar-item>
     </i-tab-bar>
+
+    <!-- 授权弹出框 -->
     <i-modal title="需要您的授权" visible="{{ getUset }}" isShoeBtn="{{false}}">
       <view>为了提供更好的服务</view>
       <view>请稍后的提示框中点击‘允许’</view>
       <view class="inModal"></view>
       <button type="primary" size="mini" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">我知道了</button>
     </i-modal>
+
+
     <!-- <view class="home">
       <index wx:if="{{currentPage==0}}"></index>
       <view wx:if="{{currentPage==1}}">发布</view>
@@ -55,6 +99,7 @@ import Navbar from '@/components/navbar'
 import Index from './index'
 import My from './my'
 import Jion from './jion'
+import Modal from '@/components/modal'
 
 export default class Home extends wepy.page {
   config = {
@@ -76,6 +121,7 @@ export default class Home extends wepy.page {
     my: My,
     index: Index,
     jion:Jion,
+    modal:Modal
     // modalbox:Modalbox
   }
   data = {
@@ -83,7 +129,13 @@ export default class Home extends wepy.page {
     userInfo: '', // 获取的用户信息
     currentPage: 0,
     current: 'homepage',
+    jionUs: false
   }
+  watch = {
+      current (newValue, oldValue) {
+          console.log(`canshu2: ${oldValue} -> ${newValue}`)
+      }
+  };
   methods = {
      handleChange ( {detail} ) {
        console.log(detail);
@@ -121,22 +173,33 @@ export default class Home extends wepy.page {
         this.current =  'mine'
       }
     },
-    fn(e) {
-      console.log('传递的参数',e);
-      let {currentPage} = e.source.$data
-      this.currentPage = currentPage
+    callPhone() {
+      wx.makePhoneCall({
+        phoneNumber: '13771584373'
+      })
+    },
+    // show
+    show(type) {
+      this[type] = true
+    },
+    // 返回
+    goback (type) {
+      console.log(type);
+      this[type] = false
       this.$apply()
-      console.log(currentPage);
-      if(currentPage == 1) {
-        wx.setNavigationBarTitle({
-          title: '发布'
+    },
+    copy () {
+        wx.setClipboardData({
+          data:'jiaomi889988',
+          success: function (res) {
+            wx.showToast({
+              title: '复制成功',
+            })
+          }
         })
-      }else{
-        wx.setNavigationBarTitle({
-          title: ''
-        })
-      }
-    }
+      },
+
+
   }
   onLoad () {}
 
