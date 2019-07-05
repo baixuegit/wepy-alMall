@@ -74,7 +74,7 @@
 </style>
 <template>
       <view class="jion-page" >
-         <image class="my-bg" src="../statrc/images/bg.png"/>
+         <image class="my-bg" src="../statrc/images/jion-ba.png"/>
         <!-- <image class="jion-bg" src="../statrc/images/bg.png"></image> -->
         <view class="page-title" style="opacity:{{opacityKey}}">呦蓝艾璐卡-代理</view>
         <!-- <view class="info-wapper">
