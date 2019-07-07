@@ -1,0 +1,165 @@
+<style lang="less">
+.page-title {
+  background-color: #fff;
+  // border:1rpx solid #F7F7F7;
+}
+.index-wapper {
+  height: 100vh;
+  width: 100%;
+  padding-top: 140rpx;
+  box-sizing: border-box;
+  // background-color: pink;
+}
+.swiperWapper {
+  text-align: center;
+  height: 480rpx;
+}
+swiper-item {
+ display:block;
+overflow:hidden;
+width:480rpx !important;
+// height: 300rpx !important;
+// will-change:transform;
+
+}
+.swiper-image {
+ width: 100%;
+    height: 100%;
+    display: block;
+    transform: scale(0.75);
+    transition: all 0.3s ease;
+    border-radius: 20px;
+}
+.active {
+  transform: scale(1);
+}
+.goodsTitle {
+  text-align: center;
+  font-size: 16px;
+  padding:10px 20px;
+}
+.tag {
+  text-align: center;
+  text {
+    font-size: 12px;
+    color:red;
+    padding: 5rpx 10rpx;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 10rpx;
+  }
+}
+.pric {
+  text-align: center;
+  font-size: 14px;
+  padding: 10px 0;
+  text:first-child {
+    text-decoration: line-through;
+    color: #ccc;
+   margin-right: 20px;
+  }
+}
+.detailImg {
+  width: 100%;
+  image {
+    display: block;
+    width: 100%;
+    height: 1075rpx;
+  }
+}
+
+</style>
+<template>
+  <view>
+    <view class="page-title">详情页</view>
+    <scroll-view
+      scroll-y="true"
+      class="index-wapper"
+      bindscroll="scroll"
+      scroll-into-view="{{toView}}"
+    >
+        <view class="goodsTitle">艾璐卡悦颜清透系列</view>
+     <swiper
+        indicator-dots="{{indicatorDots}}"
+        indicator-color="{{indicatorColor}}"
+        indicator-active-color="{{indicatorActiveColor}}"
+        autoplay="{{autoplay}}"
+        interval="{{interval}}"
+        duration="{{duration}}"
+        circular="{{circular}}"
+        bindchange="bindchange"
+        class="swiperWapper"
+        previous-margin="136rpx"
+        next-margin="136rpx"
+      >
+        <block
+          wx:for="{{bannerData}}"
+          wx:for-item="item"
+          wx:key="index"
+        >
+          <swiper-item item-id="{{item.id}}">
+            <image src="{{item.imgUrl}}" id="{{item.id}}" class="swiper-image {{currentImg==index?'active':''}}"/>
+          </swiper-item>
+        </block>
+      </swiper>
+       <view class="goodsTitle">艾璐卡悦颜清透五件套，购买即可享受代理价</view>
+        <view class="tag">
+          <text>洁面乳</text>
+          <text>柔肤液</text>
+          <text>精华乳</text>
+          <text>羊奶凝霜</text>
+          <text>蜗牛霜</text>
+        </view>
+        <view class="pric">
+          <text>零售价：￥550</text>
+          <text>代理价：￥446</text>
+        </view>
+        <view class="detailImg">
+           <block
+          wx:for="{{detailList}}"
+          wx:for-item="item"
+          wx:key="index"
+        >
+          <image src="{{item.imgUrl}} "/>
+        </block>
+        </view>
+    </scroll-view>
+   </view>
+</template>
+<script>
+import wepy from 'wepy'
+export default class Index extends wepy.page {
+  config ={}
+  data = {
+    currentImg: 0,
+    indicatorDots: false, //是否显示小圆点
+    circular: true, //是否是无缝轮播
+    autoplay: false, //是否自动切换
+    interval: 3000, //自动切换时间间隔
+    duration: 1000, //滑动动画时长
+    opacityKey:0,
+    bannerData:[
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/01-2.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/01-1.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/01-3.png' },
+    ],
+    detailList: [
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/1.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/2.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/3.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/4.png' },
+
+    ]
+
+  }
+  components ={}
+  methods = {
+    bindchange (current,e){
+      console.log(current.detail.current);
+      this.currentImg = current.detail.current
+    }
+  }
+  onLoad () {}
+}
+</script>
+

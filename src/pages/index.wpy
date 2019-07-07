@@ -3,13 +3,14 @@
   height: 100vh;
   .goodsItem {
     width: 100%;
-    height:404rpx ;
+    // height:404rpx;
     text-align: center;
-    padding: 20rpx 0;
+    background-color: #FDF7EB;
+    margin-top: 20rpx;
     image {
       display: inline-block;
-      width: 689rpx;
-      height: 100%;
+      width: 50%;
+      // height: 100%;
     }
   }
 }
@@ -90,10 +91,14 @@ swiper {
         </view>
       </view>
       <view class="goodsItem">
-        <image src="../statrc/images/01_03.png"/>
-      </view>
-       <view class="goodsItem">
-        <image src="../statrc/images/02_03.png"/>
+        <!-- <image src="../statrc/images/01_03.png"/> -->
+        <block
+          wx:for="{{goodsList}}"
+          wx:for-item="item"
+          wx:key="index"
+        >
+          <image src="{{item.imgUrl}}" id="{{item.id}}" class="goosListItem" @tap=goodsDetail({{item.id}})'/>
+        </block>
       </view>
     </scroll-view>
   </view>
@@ -118,17 +123,29 @@ swiper {
     }
 
     data = {
-       lunboData: [
-      { id: 'b1', imgUrl: '../statrc/images/01-2_01.png' },
-      { id: 'b2', imgUrl: '../statrc/images/1-1_01.png' },
-    ],
-    indicatorDots: true, //是否显示小圆点
-    circular: true, //是否是无缝轮播
-    autoplay: true, //是否自动切换
-    interval: 3000, //自动切换时间间隔
-    duration: 1000, //滑动动画时长
-    opacityKey:0,
-    }
+      lunboData: [
+        { id: 'b1', imgUrl: '../statrc/images/01-2_01.png' },
+        { id: 'b2', imgUrl: '../statrc/images/1-1_01.png' },
+      ],
+      goodsList: [
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/a-01.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/a-02.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/a-03.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/a-04.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/a-05.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/a-06.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/n-01.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/n-02.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/n-03.png' },
+
+      ],
+      indicatorDots: true, //是否显示小圆点
+      circular: true, //是否是无缝轮播
+      autoplay: true, //是否自动切换
+      interval: 3000, //自动切换时间间隔
+      duration: 1000, //滑动动画时长
+      opacityKey:0,
+      }
     methods = {
       scroll(e) {
         if(e.detail.scrollTop >= 100 ){
@@ -146,6 +163,20 @@ swiper {
         // 父子组价数据双向绑定
         this.$parent.current = 'jion'
         this.$parent.$apply();
+      },
+      goodsDetail(id) {
+        wepy.navigateTo({
+          url: '/pages/detail'
+        })
+        console.log('id',id);
+        const data = {id}
+        //wepy.request({
+          //url:`http://192.168.1.7:8080/product/list`,
+         // method:'GET',
+          //data:{}
+        //}).then(res => {
+         // console.log(res)
+       // })
       }
     }
   }
