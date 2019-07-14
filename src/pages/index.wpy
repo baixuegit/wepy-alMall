@@ -124,19 +124,23 @@ swiper {
 
     data = {
       lunboData: [
-        { id: 'b1', imgUrl: '../statrc/images/01-2_01.png' },
-        { id: 'b2', imgUrl: '../statrc/images/1-1_01.png' },
+        { id: 'b1', imgUrl: 'http://47.98.156.46:8080/image/index/b1.png' },
+        { id: 'b2', imgUrl: 'http://47.98.156.46:8080/image/index/b2.png' },
+        { id: 'b3', imgUrl: 'http://47.98.156.46:8080/image/index/b3.png' },
+        { id: 'b4', imgUrl: 'http://47.98.156.46:8080/image/index/b4.png' },
       ],
       goodsList: [
-        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/a-01.png' },
-        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/a-02.png' },
-        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/a-03.png' },
-        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/a-04.png' },
-        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/a-05.png' },
-        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/a-06.png' },
-        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/n-01.png' },
-        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/n-02.png' },
-        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/n-03.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/index/a-01.png' },
+        { id: 'g2', imgUrl: 'http://47.98.156.46:8080/image/index/a-02.png' },
+        { id: 'g3', imgUrl: 'http://47.98.156.46:8080/image/index/a-03.png' },
+        { id: 'g4', imgUrl: 'http://47.98.156.46:8080/image/index/a-04.png' },
+        { id: 'g5', imgUrl: 'http://47.98.156.46:8080/image/index/a-05.png' },
+        { id: 'g6', imgUrl: 'http://47.98.156.46:8080/image/index/a-06.png' },
+        { id: 'g7', imgUrl: 'http://47.98.156.46:8080/image/index/a-07.png' },
+        { id: 'g8', imgUrl: 'http://47.98.156.46:8080/image/index/a-08.png' },
+        { id: 'n1', imgUrl: 'http://47.98.156.46:8080/image/index/n-01.png' },
+        { id: 'n2', imgUrl: 'http://47.98.156.46:8080/image/index/n-02.png' },
+        { id: 'n3', imgUrl: 'http://47.98.156.46:8080/image/index/n-03.png' },
 
       ],
       indicatorDots: true, //是否显示小圆点
@@ -166,7 +170,7 @@ swiper {
       },
       goodsDetail(id) {
         wepy.navigateTo({
-          url: '/pages/detail'
+          url: `/pages/detail?id=${id}`
         })
         console.log('id',id);
         const data = {id}

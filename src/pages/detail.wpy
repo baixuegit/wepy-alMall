@@ -8,6 +8,7 @@
   width: 100%;
   padding-top: 140rpx;
   box-sizing: border-box;
+  padding-bottom:50px;
   // background-color: pink;
 }
 .swiperWapper {
@@ -64,7 +65,26 @@ width:480rpx !important;
   image {
     display: block;
     width: 100%;
-    height: 1075rpx;
+    height: 1000rpx;
+  }
+}
+.bottomBtns {
+  display: block;
+  width: 100%;
+  height: 50px;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  .btn {
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    line-height: 50px;
+    text-align: center;
+  }
+  .btn2 {
+    background-color: #fe6e6a;
   }
 }
 
@@ -75,10 +95,9 @@ width:480rpx !important;
     <scroll-view
       scroll-y="true"
       class="index-wapper"
-      bindscroll="scroll"
       scroll-into-view="{{toView}}"
     >
-        <view class="goodsTitle">艾璐卡悦颜清透系列</view>
+        <view class="goodsTitle">{{title}}</view>
      <swiper
         indicator-dots="{{indicatorDots}}"
         indicator-color="{{indicatorColor}}"
@@ -102,17 +121,25 @@ width:480rpx !important;
           </swiper-item>
         </block>
       </swiper>
-       <view class="goodsTitle">艾璐卡悦颜清透五件套，购买即可享受代理价</view>
+       <view class="goodsTitle">{{goodsdesc}}</view>
         <view class="tag">
-          <text>洁面乳</text>
+          <block
+            wx:for="{{textList}}"
+            wx:for-item="item"
+            wx:key="index"
+          >
+          <text>{{item.text}}</text>
+
+          </block>
+          <!-- <text>洁面乳</text>
           <text>柔肤液</text>
           <text>精华乳</text>
           <text>羊奶凝霜</text>
-          <text>蜗牛霜</text>
+          <text>蜗牛霜</text> -->
         </view>
         <view class="pric">
-          <text>零售价：￥550</text>
-          <text>代理价：￥446</text>
+          <text>零售价：￥{{oldPrice}}</text>
+          <text>代理价：￥{{price}}</text>
         </view>
         <view class="detailImg">
            <block
@@ -124,12 +151,36 @@ width:480rpx !important;
         </block>
         </view>
     </scroll-view>
+    <viwe class="bottomBtns">
+      <view class="btn" @tap='goBackIndex'>返回首页</view>
+      <view class="btn btn2" @tap='jionUs'>购买</view>
+    </viwe>
+    <modal wx:if= "{{jionUs}}">
+      <view slot="title" class="title">欢迎你的加入</view>
+      <view slot="body">
+        <view class="body-text">
+          微信号：
+          <text selectable = "true" >jiaomi889988</text>
+          <view>（长按微信号即可复制）</view>
+        </view>
+      </view>
+      <view slot="footer" class="footer x-center">
+        <view class="leftBtn btn" @tap="goback(jionUs)">返回</view>
+        <view
+        class="rightBtn btn copyBtn"
+        @tap="copy">复制微信号</view>
+      </view>
+    </modal>
    </view>
 </template>
 <script>
 import wepy from 'wepy'
+import Modal from '@/components/modal'
 export default class Index extends wepy.page {
   config ={}
+  components = {
+    modal:Modal
+  }
   data = {
     currentImg: 0,
     indicatorDots: false, //是否显示小圆点
@@ -138,28 +189,179 @@ export default class Index extends wepy.page {
     interval: 3000, //自动切换时间间隔
     duration: 1000, //滑动动画时长
     opacityKey:0,
+    jionUs: false,
     bannerData:[
-      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/01-2.png' },
-      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/01-1.png' },
-      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/01-3.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/wujiantao/al01.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/wujiantao/al02.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/wujiantao/al03.png' },
     ],
     detailList: [
-      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/1.png' },
-      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/2.png' },
-      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/3.png' },
-      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/4.png' },
-
-    ]
-
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/wujiantao/al1.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/wujiantao/al2.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/wujiantao/al3.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/wujiantao/al4.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/wujiantao/al5.png' },
+    ],
+    textList:[
+      {text:'洁面乳'},
+      {text:'柔肤液'},
+      {text:'精华乳'},
+      {text:'羊奶凝霜'},
+      {text:'蜗牛霜'},
+    ],
+    title: '艾璐卡悦颜清透系列',
+    goodsdesc: '艾璐卡悦颜清透五件套，购买即可享受代理价',
+    price: '440',
+    oldPrice: '550'
   }
-  components ={}
   methods = {
     bindchange (current,e){
       console.log(current.detail.current);
       this.currentImg = current.detail.current
+    },
+    goBackIndex () {
+      wepy.navigateTo({
+        url: '/pages/home'
+      })
+    },
+    jionUs () {
+      this.jionUs = true
+    },
+    goback () {
+      this.jionUs = false
+    },
+    copy () {
+        wx.setClipboardData({
+          data:'jiaomi889988',
+          success: function (res) {
+            wx.showToast({
+              title: '复制成功',
+            })
+          }
+        })
+      },
+
+
+  }
+  onLoad (option) {
+    const id = option.id
+    console.log('ssss',id);
+    if( id === 'g1') {
+      this.detailList = [
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/xiaobaimianmo/m1.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/xiaobaimianmo/m2.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/xiaobaimianmo/m3.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/xiaobaimianmo/m4.png' },
+      ]
+      this.bannerData = [
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/xiaobaimianmo/m01.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/xiaobaimianmo/m02.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/xiaobaimianmo/m03.png' },
+      ]
+      this.textList = [
+        {text:'面膜'},
+      ],
+      this.title = '水光肌莹润修复面膜',
+      this.goodsdesc = '艾璐卡水光肌莹润修复面膜，购买即可享受代理价',
+      this.price =  '108',
+      this.oldPrice = '128'
+    }
+
+    if (id === 'g7' || id === 'g8') {
+      this.textList = [
+        {text:'自然色'},
+        {text:'象牙色'},
+      ],
+      this.title = '水光气垫BB霜',
+      this.goodsdesc = '艾璐卡水光气垫BB霜，购买即可享受代理价',
+      this.price =  '125',
+      this.oldPrice = '158'
+       this.detailList = [
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/qidian/qd1.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/qidian/qd2.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/qidian/qd3.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/qidian/qd4.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/qidian/qd5.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/qidian/qd6.png' },
+      ]
+      this.bannerData=[
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/qidian/qd01.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/qidian/qd02.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/qidian/qd03.png' },
+      ]
+    }
+    if (id === 'n1') {
+      this.textList = [
+        {text:'隔离'},
+        {text:'防晒'},
+        {text:'补水'},
+        {text:'修复'},
+        {text:'抗老化'},
+      ],
+      this.title = '温泉防晒喷雾',
+      this.goodsdesc = '纽西之谜温泉防晒喷雾，购买即可享受代理价',
+      this.price =  '120',
+      this.oldPrice = '149'
+       this.detailList = [
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/pengwu/n03-1.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/pengwu/n03-2.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/pengwu/n03-3.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/pengwu/n03-4.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/pengwu/n03-5.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/pengwu/n03-6.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/pengwu/n03-7.png' },
+      ]
+      this.bannerData=[
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/pengwu/n03-01.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/pengwu/n03-02.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/pengwu/n03-03.png' },
+      ]
+    }
+    if (id === 'n2') {
+      this.textList = [
+        {text:'隔离'},
+        {text:'防晒'},
+        {text:'补水'},
+        {text:'保湿'},
+      ],
+      this.title = '温泉防晒隔离霜',
+      this.goodsdesc = '纽西之谜温泉防晒隔离霜，购买即可享受代理价',
+      this.price =  '118',
+      this.oldPrice = '148'
+       this.detailList = [
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/gelifangshai/n02-1.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/gelifangshai/n02-2.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/gelifangshai/n02-3.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/gelifangshai/n02-4.png' },
+      ]
+      this.bannerData=[
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/gelifangshai/n02-01.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/gelifangshai/n02-02.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/gelifangshai/n02-03.png' },
+      ]
+    }
+    if (id === 'n3') {
+      this.textList = [
+        {text:'V脸'},
+        {text:'抗皱'},
+        {text:'淡化细纹'},
+      ],
+      this.title = '蜂毒胜肽焕颜面膜',
+      this.goodsdesc = '纽西之谜蜂毒胜肽焕颜面膜，购买即可享受代理价',
+      this.price =  '170',
+      this.oldPrice = '219'
+       this.detailList = [
+         { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/fengdumianmo/n01-1.png' },
+         { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/fengdumianmo/n01-2.png' },
+      { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/fengdumianmo/n01-3.png' },
+      ]
+      this.bannerData=[
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/fengdumianmo/n01-01.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/fengdumianmo/n01-02.png' },
+        { id: 'g1', imgUrl: 'http://47.98.156.46:8080/image/fengdumianmo/n01-03.png' },
+      ]
     }
   }
-  onLoad () {}
 }
 </script>
 

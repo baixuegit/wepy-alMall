@@ -3,9 +3,11 @@
 	"setting": {
 		"urlCheck": true,
 		"es6": false,
-		"postcss": false,
-		"minified": false,
-		"newFeature": true
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false,
+		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
 	"appid": "wxeca2c580e9ad4b63",
@@ -13,5 +15,6 @@
 	"miniprogramRoot": "dist/",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"libVersion": "2.7.2",
 	"condition": {}
 }
